@@ -1,0 +1,29 @@
+.left-side{
+    display: flex;
+    flex: 0 0 255px;
+    flex-direction: column;
+    background-color: #2c2e3e;
+    color: #fff;
+}
+
+.left-menu{
+    padding: 30px 0px;
+}
+
+.menu-item{
+    padding: 12px 30px;
+    font-size: 14px;
+    color: #8087a5;
+}
+
+.menu-item-link{
+    padding-left: 30px;
+}
+
+.menu-title{
+    text-transform: uppercase;
+    color: #445364;
+    font-size: 12px;
+    padding: 12px 30px;
+    margin-top: 20px;
+}

@@ -1,0 +1,23 @@
+.header-right{
+    display: flex;
+    position: sticky;
+    justify-content: space-between;
+    direction: rtl;
+    background-color: #fff;
+    min-height: 70px;
+    align-items: center;
+    padding: 0px 35px;
+    -webkit-box-shadow: 0px 0px 40px -25px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0px 0px 40px -25px rgba(0, 0, 0, 1);
+    box-shadow: 0px 0px 40px -25px rgba(0, 0, 0, 1);
+}
+.header-left{
+    display: flex;
+    position: sticky;
+    justify-content: space-between;
+    background-color: #282a3c;
+    color: #fff;
+    min-height: 70px;
+    align-items: center;
+    padding: 0px 30px;
+}
