@@ -1,7 +1,11 @@
-import React from "react"
+import React, { useState } from "react"
 import { FormControl, TextField, MenuItem, Select, Stack } from "@mui/material"
 import countries from "../data/countries.json"
 import cities from "all-countries-and-cities-json"
+import BootstrapTable from "react-bootstrap-table-next"
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
+import "bootstrap/dist/css/bootstrap.min.css"
+import { Button, Form, Modal } from "react-bootstrap"
 
 const appstatuslist = [
   "Entered",
@@ -33,25 +37,289 @@ const roleslist = [
   "Administration",
 ]
 
+const titlelist = ["Mr.", "Mrs."]
+
 const statuslist = ["Active", "Inactive"]
 
 const rsvplist = ["Open", "Attended", "Not Attended", "Remind"]
 
+const columnsdata = [
+  {
+    dataField: "id",
+    text: "ID",
+    headerStyle: () => {
+      return { width: "5%" }
+    },
+  },
+  {
+    dataField: "title",
+    text: "Title",
+    headerStyle: () => {
+      return { width: "5%" }
+    },
+  },
+  {
+    dataField: "fname",
+    text: "First Name",
+    headerStyle: () => {
+      return { width: "10%" }
+    },
+  },
+  {
+    dataField: "lname",
+    text: "Last Name",
+    headerStyle: () => {
+      return { width: "10%" }
+    },
+  },
+  {
+    dataField: "email",
+    text: "Email Address",
+    headerStyle: () => {
+      return { width: "25%" }
+    },
+  },
+  {
+    dataField: "app_status",
+    text: "Application Status",
+    headerStyle: () => {
+      return { width: "10%" }
+    },
+  },
+  {
+    dataField: "sub_date",
+    text: "Submitted Date",
+    headerStyle: () => {
+      return { width: "15%" }
+    },
+  },
+  {
+    dataField: "attendee_status",
+    text: "Status",
+    headerStyle: () => {
+      return { width: "10%" }
+    },
+  },
+  {
+    dataField: "buttons",
+    text: "Actions",
+    headerStyle: () => {
+      return { width: "10%" }
+    },
+  },
+]
+
+const attendeesdata = [
+  {
+    id: 1,
+    title: "Mr.",
+    fname: "John",
+    lname: "Smith",
+    email: "john.smith@mail.com",
+    app_status: "Link Sent",
+    sub_date: "2021-11-10",
+    attendee_status: "Active",
+  },
+  {
+    id: 2,
+    title: "Mrs.",
+    fname: "Ewa",
+    lname: "Brown",
+    email: "ewa.brown@mail.com",
+    app_status: "Link Sent",
+    sub_date: "2021-12-10",
+    attendee_status: "Active",
+  },
+]
+
 const Attendees = () => {
-  console.log(cities)
   const selectcountry = (e) => {
     let selectedcountry = e.target.value
     console.log(cities[selectedcountry])
   }
+  let rowStyle = (row, rowIndex) => {
+    row.index = rowIndex
+    const style = {}
+    if (rowIndex % 2 === 0) {
+      style.backgroundColor = "transparent"
+    } else {
+      style.backgroundColor = "#faf9fc"
+    }
+    style.borderTop = "none"
+
+    return style
+  }
+
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+  const [changeAttendees, setChangeAttendees] = useState(attendeesdata)
+
+  const [newAttendee, setNewAttendee] = useState({
+    id: 0,
+    title: "",
+    fname: "",
+    lname: "",
+    email: "",
+    app_status: "",
+    sub_date: "",
+    attendee_status: "",
+  })
+  const addAttendee = (attendee) => {
+    setChangeAttendees((prevState) => [...prevState, attendee])
+  }
+  const onAttendeeChange = (e) => {
+    const { name, value } = e.target
+    setNewAttendee((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }))
+  }
+  const handleSubmit = (e) => {
+    console.log(newAttendee)
+    if (
+      (newAttendee.id !== "") &
+      (newAttendee.title !== "") &
+      (newAttendee.fname !== "") &
+      (newAttendee.lname !== "") &
+      (newAttendee.email !== "") &
+      (newAttendee.app_status !== "") &
+      (newAttendee.sub_date !== "") &
+      (newAttendee.attendee_status !== "")
+    ) {
+      console.log("before add")
+      addAttendee(newAttendee)
+      setShow(false)
+      console.log("done")
+    }
+  }
   return (
     <div className="attendees">
       <div className="attendees-head">
-        <h2>Attendees List</h2>
+        <div className="page-header">Attendees List</div>
         <div className="buttons">
-          <div className="button-head">+ New Attendee</div>
-          <div className="button-head">Export</div>
+          <button className="button-head" onClick={handleShow}>
+            + New Attendee
+          </button>
+          <button className="button-head">Export</button>
         </div>
       </div>
+      <Modal show={show} onHide={handleClose} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Add new attendee</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ display: "flex", justifyContent: "space-around" }}>
+          <Stack>
+            <Form.Group className="mb-3">
+              <Form.Label>ID</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="ID"
+                onChange={onAttendeeChange}
+                value={newAttendee.id}
+                name="id"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Title</Form.Label>
+              <Form.Select
+                type="text"
+                placeholder="Title"
+                onChange={onAttendeeChange}
+                value={newAttendee.title}
+                name="title"
+              >
+                <option></option>
+                {titlelist.map((title) => (
+                  <option>{title}</option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="First Name"
+                onChange={onAttendeeChange}
+                value={newAttendee.fname}
+                name="fname"
+              />
+            </Form.Group>
+          </Stack>
+          <Stack>
+            <Form.Group className="mb-3">
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Last Name"
+                onChange={onAttendeeChange}
+                value={newAttendee.lname}
+                name="lname"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Email Address</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="E-mail"
+                onChange={onAttendeeChange}
+                value={newAttendee.email}
+                name="email"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Application Status</Form.Label>
+              <Form.Select
+                type="text"
+                placeholder="Application Status"
+                onChange={onAttendeeChange}
+                value={newAttendee.app_status}
+                name="app_status"
+              >
+                <option></option>
+                {appstatuslist.map((app_status) => (
+                  <option>{app_status}</option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+          </Stack>
+          <Stack>
+            <Form.Group className="mb-3">
+              <Form.Label>Submitted Date</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Submitted Date"
+                onChange={onAttendeeChange}
+                value={newAttendee.sub_date}
+                name="sub_date"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Status</Form.Label>
+              <Form.Select
+                type="text"
+                placeholder="Status"
+                onChange={onAttendeeChange}
+                value={newAttendee.attendee_status}
+                name="attendee_status"
+              >
+                <option></option>
+                {statuslist.map((status) => (
+                  <option>{status}</option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+          </Stack>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleSubmit}>
+            Add
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div className="table-wrapper">
         <div className="filter">
           <Stack style={{ flexBasis: "25%" }}>
@@ -220,6 +488,18 @@ const Attendees = () => {
             </FormControl>
           </Stack>
         </div>
+        <BootstrapTable
+          keyField="id"
+          data={changeAttendees}
+          columns={columnsdata}
+          hover
+          condensed
+          bordered={false}
+          headerWrapperClasses="table-header"
+          bodyClasses="table-body"
+          rowStyle={rowStyle}
+          headerStyle={{ width: "30px" }}
+        />
       </div>
     </div>
   )

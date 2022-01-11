@@ -14,10 +14,11 @@
     padding: 12px 30px;
     font-size: 14px;
     color: #8087a5;
+    display: flex;
 }
 
 .menu-item-link{
-    padding-left: 30px;
+    padding-left: 20px;
 }
 
 .menu-title{
