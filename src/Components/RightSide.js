@@ -4,10 +4,10 @@ import "../Styles/rightside.css"
 import Attendees from "./Attendees"
 import MenuPath from "./MenuPath"
 
-const RightSide = () => {
+const RightSide = (props) => {
   return (
     <div className="right-side">
-      <HeaderRight />
+      <HeaderRight topActive={props.topActive} />
       <MenuPath />
       <Attendees />
     </div>

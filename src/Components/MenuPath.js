@@ -7,7 +7,7 @@ const MenuPath = () => {
       <div className="current-page">Attendees</div>
       <pre> | </pre>
       <div className="page-path">
-        <i class="bi bi-house-door"></i>
+        <i className="bi bi-house-door"></i>
         <pre> - </pre>Attendees<pre> - </pre>Attendees List
       </div>
     </div>

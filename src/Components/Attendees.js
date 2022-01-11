@@ -6,6 +6,8 @@ import BootstrapTable from "react-bootstrap-table-next"
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { Button, Form, Modal } from "react-bootstrap"
+import paginationFactory from "react-bootstrap-table2-paginator"
+import "bootstrap-icons/font/bootstrap-icons.css"
 
 const appstatuslist = [
   "Entered",
@@ -121,7 +123,78 @@ const attendeesdata = [
     attendee_status: "Active",
   },
   {
-    id: 2,
+    id: 2346787654,
+    title: "Mrs.",
+    fname: "Ewa",
+    lname: "Brown",
+    email: "ewa.brown@mail.com",
+    app_status: "Link Sent",
+    sub_date: "2021-12-10",
+    attendee_status: "Active",
+  },
+  {
+    id: 92374624,
+    title: "Mrs.",
+    fname: "Ewa",
+    lname: "Brown",
+    email: "ewa.brown@mail.com",
+    app_status: "Link Sent",
+    sub_date: "2021-12-10",
+    attendee_status: "Active",
+  },
+  {
+    id: 3453298787,
+    title: "Mrs.",
+    fname: "Ewa",
+    lname: "Brown",
+    email: "ewa.brown@mail.com",
+    app_status: "Link Sent",
+    sub_date: "2021-12-10",
+    attendee_status: "Active",
+  },
+  {
+    id: 886114,
+    title: "Mrs.",
+    fname: "Ewa",
+    lname: "Brown",
+    email: "ewa.brown@mail.com",
+    app_status: "Link Sent",
+    sub_date: "2021-12-10",
+    attendee_status: "Active",
+  },
+  {
+    id: 458638406,
+    title: "Mrs.",
+    fname: "Ewa",
+    lname: "Brown",
+    email: "ewa.brown@mail.com",
+    app_status: "Link Sent",
+    sub_date: "2021-12-10",
+    attendee_status: "Active",
+  },
+  {
+    id: 812375,
+    title: "Mrs.",
+    fname: "Ewa",
+    lname: "Brown",
+    email: "ewa.brown@mail.com",
+    app_status: "Link Sent",
+    sub_date: "2021-12-10",
+    attendee_status: "Active",
+  },
+  {
+    id: 309458027375,
+    title: "Mrs.",
+    fname: "Ewa",
+    lname: "Brown",
+    email: "ewa.brown@mail.com",
+    app_status: "Link Sent",
+    sub_date: "2021-12-10",
+    attendee_status: "Active",
+  },
+
+  {
+    id: 2490897264,
     title: "Mrs.",
     fname: "Ewa",
     lname: "Brown",
@@ -199,7 +272,7 @@ const Attendees = () => {
         <div className="page-header">Attendees List</div>
         <div className="buttons">
           <button className="button-head" onClick={handleShow}>
-            + New Attendee
+            <i className="bi bi-plus-lg"></i> New Attendee
           </button>
           <button className="button-head">Export</button>
         </div>
@@ -229,9 +302,9 @@ const Attendees = () => {
                 value={newAttendee.title}
                 name="title"
               >
-                <option></option>
+                <option key="title"></option>
                 {titlelist.map((title) => (
-                  <option>{title}</option>
+                  <option key={title}>{title}</option>
                 ))}
               </Form.Select>
             </Form.Group>
@@ -276,9 +349,9 @@ const Attendees = () => {
                 value={newAttendee.app_status}
                 name="app_status"
               >
-                <option></option>
+                <option key="app_status"></option>
                 {appstatuslist.map((app_status) => (
-                  <option>{app_status}</option>
+                  <option key={app_status}>{app_status}</option>
                 ))}
               </Form.Select>
             </Form.Group>
@@ -303,9 +376,9 @@ const Attendees = () => {
                 value={newAttendee.attendee_status}
                 name="attendee_status"
               >
-                <option></option>
+                <option key="status"></option>
                 {statuslist.map((status) => (
-                  <option>{status}</option>
+                  <option key={status}>{status}</option>
                 ))}
               </Form.Select>
             </Form.Group>
@@ -336,11 +409,13 @@ const Attendees = () => {
                   fontSize: 14,
                 }}
               >
-                <MenuItem value="">
+                <MenuItem key="country" value="">
                   <font color="grey">All Country</font>
                 </MenuItem>
                 {countries.map((country) => (
-                  <MenuItem value={country.name}>{country.name}</MenuItem>
+                  <MenuItem key={country.name} value={country.name}>
+                    {country.name}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -356,11 +431,13 @@ const Attendees = () => {
                   fontSize: 14,
                 }}
               >
-                <MenuItem value="">
+                <MenuItem key="appstatus" value="">
                   <font color="grey">All Application Status</font>
                 </MenuItem>
                 {appstatuslist.map((appstatus) => (
-                  <MenuItem value={appstatus}>{appstatus}</MenuItem>
+                  <MenuItem key={appstatus} value={appstatus}>
+                    {appstatus}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -378,11 +455,13 @@ const Attendees = () => {
                   fontSize: 14,
                 }}
               >
-                <MenuItem value="">
+                <MenuItem key="city" value="">
                   <font color="grey">All City</font>
                 </MenuItem>
                 {cities["Afghanistan"].map((city) => (
-                  <MenuItem value={city}>{city}</MenuItem>
+                  <MenuItem key={city} value={city}>
+                    {city}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -398,11 +477,13 @@ const Attendees = () => {
                   fontSize: 14,
                 }}
               >
-                <MenuItem value="">
+                <MenuItem key="attendeetype" value="">
                   <font color="grey">All Attendee Type</font>
                 </MenuItem>
                 {attendeetypelist.map((attendeetype) => (
-                  <MenuItem value={attendeetype}>{attendeetype}</MenuItem>
+                  <MenuItem key={attendeetype} value={attendeetype}>
+                    {attendeetype}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -420,11 +501,13 @@ const Attendees = () => {
                   fontSize: 14,
                 }}
               >
-                <MenuItem value="">
+                <MenuItem key="role" value="">
                   <font color="grey">All Role</font>
                 </MenuItem>
                 {roleslist.map((role) => (
-                  <MenuItem value={role}>{role}</MenuItem>
+                  <MenuItem key={role} value={role}>
+                    {role}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -440,11 +523,13 @@ const Attendees = () => {
                   fontSize: 14,
                 }}
               >
-                <MenuItem value="">
+                <MenuItem key="status" value="">
                   <font color="grey">All Status</font>
                 </MenuItem>
                 {statuslist.map((status) => (
-                  <MenuItem value={status}>{status}</MenuItem>
+                  <MenuItem key={status} value={status}>
+                    {status}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -488,18 +573,20 @@ const Attendees = () => {
             </FormControl>
           </Stack>
         </div>
-        <BootstrapTable
-          keyField="id"
-          data={changeAttendees}
-          columns={columnsdata}
-          hover
-          condensed
-          bordered={false}
-          headerWrapperClasses="table-header"
-          bodyClasses="table-body"
-          rowStyle={rowStyle}
-          headerStyle={{ width: "30px" }}
-        />
+        <div className="mytable">
+          <BootstrapTable
+            keyField="id"
+            data={changeAttendees}
+            columns={columnsdata}
+            hover
+            condensed
+            bordered={false}
+            headerWrapperClasses="table-header"
+            bodyClasses="table-body"
+            rowStyle={rowStyle}
+            pagination={paginationFactory()}
+          />
+        </div>
       </div>
     </div>
   )
