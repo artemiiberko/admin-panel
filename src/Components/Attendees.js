@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import { Button, Form, Modal } from "react-bootstrap"
 import paginationFactory from "react-bootstrap-table2-paginator"
 import "bootstrap-icons/font/bootstrap-icons.css"
+import filterFactory, { selectFilter } from "react-bootstrap-table2-filter"
 
 const appstatuslist = [
   "Entered",
@@ -45,10 +46,14 @@ const statuslist = ["Active", "Inactive"]
 
 const rsvplist = ["Open", "Attended", "Not Attended", "Remind"]
 
+let statusfilter
+let appstatusfilter
+
 const columnsdata = [
   {
     dataField: "id",
     text: "ID",
+    sort: true,
     headerStyle: () => {
       return { width: "5%" }
     },
@@ -56,6 +61,7 @@ const columnsdata = [
   {
     dataField: "title",
     text: "Title",
+    sort: true,
     headerStyle: () => {
       return { width: "5%" }
     },
@@ -63,6 +69,7 @@ const columnsdata = [
   {
     dataField: "fname",
     text: "First Name",
+    sort: true,
     headerStyle: () => {
       return { width: "10%" }
     },
@@ -70,6 +77,7 @@ const columnsdata = [
   {
     dataField: "lname",
     text: "Last Name",
+    sort: true,
     headerStyle: () => {
       return { width: "10%" }
     },
@@ -77,6 +85,7 @@ const columnsdata = [
   {
     dataField: "email",
     text: "Email Address",
+    sort: true,
     headerStyle: () => {
       return { width: "25%" }
     },
@@ -84,6 +93,14 @@ const columnsdata = [
   {
     dataField: "app_status",
     text: "Application Status",
+    sort: true,
+    filter: selectFilter({
+      options: appstatuslist,
+      getFilter: (filter) => {
+        appstatusfilter = filter
+      },
+      className: "head-filter",
+    }),
     headerStyle: () => {
       return { width: "10%" }
     },
@@ -91,6 +108,7 @@ const columnsdata = [
   {
     dataField: "sub_date",
     text: "Submitted Date",
+    sort: true,
     headerStyle: () => {
       return { width: "15%" }
     },
@@ -98,6 +116,14 @@ const columnsdata = [
   {
     dataField: "attendee_status",
     text: "Status",
+    sort: true,
+    filter: selectFilter({
+      options: statuslist,
+      getFilter: (filter) => {
+        statusfilter = filter
+      },
+      className: "head-filter",
+    }),
     headerStyle: () => {
       return { width: "10%" }
     },
@@ -227,6 +253,7 @@ const Attendees = () => {
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
   const [changeAttendees, setChangeAttendees] = useState(attendeesdata)
+  const [addattendeeerror, setAddattendeeerror] = useState("")
 
   const [newAttendee, setNewAttendee] = useState({
     id: 0,
@@ -248,8 +275,12 @@ const Attendees = () => {
       [name]: value,
     }))
   }
+  function idExists(id) {
+    return changeAttendees.some(function (e) {
+      return e.id === id
+    })
+  }
   const handleSubmit = (e) => {
-    console.log(newAttendee)
     if (
       (newAttendee.id !== "") &
       (newAttendee.title !== "") &
@@ -260,12 +291,27 @@ const Attendees = () => {
       (newAttendee.sub_date !== "") &
       (newAttendee.attendee_status !== "")
     ) {
-      console.log("before add")
-      addAttendee(newAttendee)
-      setShow(false)
-      console.log("done")
+      if (idExists(newAttendee.id)) {
+        console.log("id exist")
+        setAddattendeeerror("ID уже существует")
+      } else {
+        console.log(changeAttendees)
+        console.log("ok")
+        setAddattendeeerror("")
+        addAttendee(newAttendee)
+        setShow(false)
+      }
+    } else {
+      setAddattendeeerror("Заполните все поля")
     }
   }
+  const statusFilterChange = (e) => {
+    statusfilter(e.target.value)
+  }
+  const appstatusFilterChange = (e) => {
+    appstatusfilter(e.target.value)
+  }
+
   return (
     <div className="attendees">
       <div className="attendees-head">
@@ -382,6 +428,7 @@ const Attendees = () => {
                 ))}
               </Form.Select>
             </Form.Group>
+            <div className="addattendee-error">{addattendeeerror}</div>
           </Stack>
         </Modal.Body>
         <Modal.Footer>
@@ -430,6 +477,7 @@ const Attendees = () => {
                   fontFamily: "Poppins",
                   fontSize: 14,
                 }}
+                onChange={appstatusFilterChange}
               >
                 <MenuItem key="appstatus" value="">
                   <font color="grey">All Application Status</font>
@@ -467,7 +515,7 @@ const Attendees = () => {
             </FormControl>
             <FormControl sx={{ m: "0px 15px 15px 15px", mt: "0px" }}>
               <Select
-                id="country"
+                id="attendee-type"
                 displayEmpty
                 defaultValue={""}
                 sx={{
@@ -491,7 +539,7 @@ const Attendees = () => {
           <Stack style={{ flexBasis: "25%" }}>
             <FormControl sx={{ m: "0px 15px 15px 15px" }}>
               <Select
-                id="country"
+                id="role"
                 displayEmpty
                 defaultValue={""}
                 sx={{
@@ -513,7 +561,7 @@ const Attendees = () => {
             </FormControl>
             <FormControl sx={{ m: "0px 15px 15px 15px", mt: "0px" }}>
               <Select
-                id="country"
+                id="status"
                 displayEmpty
                 defaultValue={""}
                 sx={{
@@ -522,6 +570,7 @@ const Attendees = () => {
                   fontFamily: "Poppins",
                   fontSize: 14,
                 }}
+                onChange={statusFilterChange}
               >
                 <MenuItem key="status" value="">
                   <font color="grey">All Status</font>
@@ -537,7 +586,7 @@ const Attendees = () => {
           <Stack style={{ flexBasis: "25%" }}>
             <FormControl sx={{ m: "0px 15px 15px 15px" }}>
               <Select
-                id="country"
+                id="rsvp"
                 displayEmpty
                 defaultValue={""}
                 sx={{
@@ -547,11 +596,13 @@ const Attendees = () => {
                   fontSize: 14,
                 }}
               >
-                <MenuItem value="">
+                <MenuItem key="rsvp" value="">
                   <font color="grey">All RSVP</font>
                 </MenuItem>
                 {rsvplist.map((rsvp) => (
-                  <MenuItem value={rsvp}>{rsvp}</MenuItem>
+                  <MenuItem key={rsvp} value={rsvp}>
+                    {rsvp}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -585,6 +636,7 @@ const Attendees = () => {
             bodyClasses="table-body"
             rowStyle={rowStyle}
             pagination={paginationFactory()}
+            filter={filterFactory()}
           />
         </div>
       </div>
