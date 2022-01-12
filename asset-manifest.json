@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/admin-panel/static/css/main.08e874f1.css",
-    "main.js": "/admin-panel/static/js/main.c5278d54.js",
+    "main.css": "/admin-panel/static/css/main.554ca15f.css",
+    "main.js": "/admin-panel/static/js/main.53fccfb3.js",
     "static/media/bootstrap-icons.woff?": "/admin-panel/static/media/bootstrap-icons.38c4d2499557ae0379fd.woff",
     "static/media/bootstrap-icons.woff2?": "/admin-panel/static/media/bootstrap-icons.2b56e79ae5013246de29.woff2",
     "static/media/user_avtar.png": "/admin-panel/static/media/user_avtar.0334f4b4096534cc3936.png",
     "index.html": "/admin-panel/index.html",
-    "main.08e874f1.css.map": "/admin-panel/static/css/main.08e874f1.css.map",
-    "main.c5278d54.js.map": "/admin-panel/static/js/main.c5278d54.js.map"
+    "main.554ca15f.css.map": "/admin-panel/static/css/main.554ca15f.css.map",
+    "main.53fccfb3.js.map": "/admin-panel/static/js/main.53fccfb3.js.map"
   },
   "entrypoints": [
-    "static/css/main.08e874f1.css",
-    "static/js/main.c5278d54.js"
+    "static/css/main.554ca15f.css",
+    "static/js/main.53fccfb3.js"
   ]
 }
