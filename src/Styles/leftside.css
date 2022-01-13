@@ -18,11 +18,19 @@ flex-direction: column;
     font-size: 14px;
     color: #8087a5;
     display: flex;
+    color: #8087a5;
+    text-decoration: none;
+}
+
+.menu-item:hover{
+    color: #b8bccf;
+    background-color: #292c3a;
 }
 
 .menu-item-link{
     padding-left: 20px;
 }
+
 
 .menu-title{
     text-transform: uppercase;

@@ -26,7 +26,7 @@ pre{
     margin-bottom: 0 !important;
 }
 
-.attendees{
+.page{
     background-color: #fff;
     margin: 30px;
     -webkit-box-shadow: 0px 0px 40px -25px rgba(0, 0, 0, 1);
@@ -34,7 +34,7 @@ pre{
     box-shadow: 0px 0px 40px -25px rgba(0, 0, 0, 1);
 }
 
-.attendees-head{
+.page-head{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -112,7 +112,7 @@ pre{
     
 }
 
-.addattendee-error{
+.add-error{
     color: red;
 }
 
@@ -132,8 +132,7 @@ pre{
         overflow: auto;
     }
 
-
-    .attendees-head{
+    .page-head{
         padding: 10px 15px;
     }
     .button-head{

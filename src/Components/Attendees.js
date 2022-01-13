@@ -292,11 +292,8 @@ const Attendees = () => {
       (newAttendee.attendee_status !== "")
     ) {
       if (idExists(newAttendee.id)) {
-        console.log("id exist")
         setAddattendeeerror("ID уже существует")
       } else {
-        console.log(changeAttendees)
-        console.log("ok")
         setAddattendeeerror("")
         addAttendee(newAttendee)
         setShow(false)
@@ -313,8 +310,8 @@ const Attendees = () => {
   }
 
   return (
-    <div className="attendees">
-      <div className="attendees-head">
+    <div className="page">
+      <div className="page-head">
         <div className="page-header">Attendees List</div>
         <div className="buttons">
           <button className="button-head" onClick={handleShow}>
@@ -428,7 +425,7 @@ const Attendees = () => {
                 ))}
               </Form.Select>
             </Form.Group>
-            <div className="addattendee-error">{addattendeeerror}</div>
+            <div className="add-error">{addattendeeerror}</div>
           </Stack>
         </Modal.Body>
         <Modal.Footer>
